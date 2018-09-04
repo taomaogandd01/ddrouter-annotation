@@ -1,0 +1,42 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'com.novoda.bintray-release'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+buildscript {
+    ext.kotlin_version = '1.2.60'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+publish {
+    userOrg = 'taomaogandd01' //在https://bintray.com上注册的用户名
+    groupId = 'com.hk01.uikit' //jCenter上的路径
+    artifactId = 'ddrouter-annotation' //要上传的library名称（和二、4中的package相同）
+    publishVersion = '0.1.0' //library的版本号
+    desc = 'A annotation library' //library的简单描述
+    website = 'https://github.com/Othershe/DUtil' //library的开源地址，例如在github上的地址
+}
